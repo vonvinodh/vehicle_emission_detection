@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 2
+names: ['0', '1']
+
+roboflow:
+  workspace: fast-nuces-nqyat
+  project: car-smoke-detector
+  version: 1
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/fast-nuces-nqyat/car-smoke-detector/dataset/1
