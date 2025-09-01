@@ -1,32 +1,41 @@
 from ultralytics import YOLO
+import os
 
-# --------- STEP 1: Define dataset path ---------
-data_yaml = r"C:\Users\Dell\Downloads\project_dataset\processed_dataset\data.yaml"
+# Paths
+dataset_path = r"C:\Users\Dell\Documents\vehicle_emission_detection\processed_dataset\data.yaml"
+output_dir = r"C:\Users\Dell\Documents\vehicle_emission_detection\processed_dataset\runs"
 
-# --------- STEP 2: Train the model ---------
-print(" Starting Training...")
-model = YOLO("yolov8n.pt")   # you can change to yolov8s.pt for better accuracy
+# Make sure output dir exists
+os.makedirs(output_dir, exist_ok=True)
 
+# Load YOLO model (nano version for faster CPU training)
+model = YOLO("yolov8n.pt")
+
+print("\n Starting Training...")
 model.train(
-    data=data_yaml,          # dataset yaml path
-    epochs=50,               # number of epochs
-    imgsz=640,               # image size
-    batch=16,                # batch size
-    name="smoke_vehicle_detector"  # experiment name
+    data=dataset_path,       # your dataset yaml
+    epochs=1,               # keep small for demo
+    imgsz=640,
+    batch=8,                 # small batch size for CPU
+    fraction=0.05,           # use only 25% of dataset to save time
+    device="cpu",            # you don’t have GPU
+    project=output_dir,
+    name="smoke_vehicle_detector"
+)
+print("\nTraining Finished!")
+
+# Evaluate on validation set
+print("\n Running Evaluation...")
+metrics = model.val(data=dataset_path)
+print(metrics)
+
+# Run predictions on test images
+print("\n Running Inference on Test Images...")
+results = model.predict(
+    source=os.path.join(os.path.dirname(dataset_path), "test/images"), 
+    save=True,
+    project=output_dir,
+    name="predictions"
 )
 
-print(" Training Completed!")
-
-# --------- STEP 3: Evaluate model on test set ---------
-print("Evaluating on test set...")
-metrics = model.val(data=data_yaml, split="test")
-print("Evaluation Results:", metrics)
-
-# --------- STEP 4: Run inference on sample image/video ---------
-# Replace path with your own test file
-sample_file = r"C:\Users\Dell\Downloads\car_video.mp4"  # can be .jpg, .png, or video
-
-print(f" Running inference on: {sample_file}")
-results = model.predict(source=sample_file, show=True, save=True)
-
-print(" Done! Results saved inside 'runs/detect/smoke_vehicle_detector/predict'")
+print("\n Inference Completed! Check results inside 'runs/predictions'.")
