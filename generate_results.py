@@ -6,7 +6,8 @@ from ultralytics import YOLO
 # Paths
 # -------------------
 # Path to trained weights (update if different)
-weights_path = r"C:\Users\Dell\Documents\vehicle_emission_detection\processed_dataset\runs\detect\smoke_vehicle_detector\weights\best.pt"
+weights_path = r"C:\Users\Dell\Documents\vehicle_emission_detection\processed_dataset\runs\smoke_vehicle_detector\weights\best.pt"
+
 
 # Path to test images
 test_images = r"C:\Users\Dell\Documents\vehicle_emission_detection\processed_dataset\test\images"
