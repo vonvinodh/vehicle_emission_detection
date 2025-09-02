@@ -16,20 +16,20 @@ The system:
 
 vehicle_emission_detection/
 │
-├── preprocess_check.py # Verify dataset integrity, labels, resizing
-├── process_dataset.py # Data cleaning & preprocessing
-├── train_and_test.py # Training, validation, and test pipeline
-├── generate_results.py # Run inference and save predictions
+├── preprocess_check.py                         # Verify dataset integrity, labels, resizing
+├── process_dataset.py                          # Data cleaning & preprocessing
+├── train_and_test.py                           # Training, validation, and test pipeline
+├── generate_results.py                         # Run inference and save predictions
 │
-├── processed_dataset/ # Dataset (train/valid/test + data.yaml)
+├── processed_dataset/                          # Dataset (train/valid/test + data.yaml)
 │ ├── train/
 │ ├── valid/
 │ ├── test/
 │ └── data.yaml
 │
-├── results/ # Inference outputs (created automatically)
+├── results/                                    # Inference outputs (created automatically)
 │
-└── runs/ # Training logs, weights, metrics (auto-generated)
+└── runs/                                       # Training logs, weights, metrics (auto-generated)
 
 
 ---
