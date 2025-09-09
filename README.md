@@ -1,105 +1,107 @@
-# Vehicle Emission Detection using YOLOv8  
+# Vehicle Emission Detection using YOLOv8
+## 📌 Project Overview
+Air pollution from vehicle exhaust is one of the leading causes of urban air quality degradation.
+This project uses YOLOv8 (You Only Look Once) object detection to identify vehicles emitting visible smoke from street images.
 
-##  Project Overview  
-Air pollution from vehicle exhaust is one of the leading causes of urban air quality degradation.  
-This project uses **YOLOv8 (You Only Look Once)** object detection to **identify vehicles emitting visible smoke** from street images.  
+The system:
+1. Collects and preprocesses vehicle + smoke datasets.
+2. Trains a YOLOv8 model to detect smoke emissions.
+3. Evaluates model performance.
+4. Runs inference on new images and outputs detection results.
 
-The system:  
-1. Collects and preprocesses vehicle + smoke datasets.  
-2. Trains a YOLOv8 model to detect smoke emissions.  
-3. Evaluates model performance.  
-4. Runs inference on new images and outputs detection results.  
 
----
-
-##  Project Structure  
-
+### 📂 Project Structure
 vehicle_emission_detection/
 │
-├── preprocess_check.py                         # Verify dataset integrity, labels, resizing
-├── process_dataset.py                          # Data cleaning & preprocessing
-├── train_and_test.py                           # Training, validation, and test pipeline
-├── generate_results.py                         # Run inference and save predictions
+├── preprocess_check.py        # Verify dataset integrity, labels, resizing
+├── process_dataset.py         # Data cleaning & preprocessing
+├── train_and_test.py          # Training, validation, and test pipeline
+├── generate_results.py        # Run inference and save predictions
 │
-├── processed_dataset/                          # Dataset (train/valid/test + data.yaml)
-│ ├── train/
-│ ├── valid/
-│ ├── test/
-│ └── data.yaml
+├── processed_dataset/         # Dataset (train/valid/test + data.yaml)
+│   ├── train/
+│   ├── valid/
+│   ├── test/
+│   └── data.yaml
 │
-├── results/                                    # Inference outputs (created automatically)
+├── results/                   # Inference outputs (created automatically)
 │
-└── runs/                                       # Training logs, weights, metrics (auto-generated)
+└── runs/                      # Training logs, weights, metrics (auto-generated)
 
 
----
-
-##  Installation  
-
+### ⚙️ Installation
 1. Clone the repo:
-```bash
 git clone https://github.com/<your-username>/vehicle_emission_detection.git
 cd vehicle_emission_detection
-
-
-Install dependencies:
-
+2. Install dependencies:
 pip install ultralytics opencv-python matplotlib
 
- Usage
+
+#### 🚀 Usage
 1. Preprocess Dataset
-
 Checks for missing labels, resizes images, and removes corrupt files:
-
 python preprocess_check.py
 
 2. Train & Test Model
-
 Trains YOLOv8 on the dataset (by default uses a small fraction for demo):
-
 python train_and_test.py
 
-
 Outputs:
-
-runs/smoke_vehicle_detector/weights/best.pt → trained model
-
-Training metrics in runs/
+- runs/smoke_vehicle_detector/weights/best.pt → trained model
+- Training metrics saved in runs/
 
 3. Run Inference
-
 Generates predictions on test images and saves results:
-
 python generate_results.py
 
-
-Results saved in:
-
+Results are saved in:
 results/
 
- Results
 
-The model detects smoke emission from vehicles in road images.
+#### 📊 Results
+1. Training Metrics
+The training progress is visualized in the curves below (loss decreasing, mAP improving).
+[Training Results](docs/results.png)  
 
-Example outputs (bounding boxes with confidence scores):
+2. Confusion Matrix
+This shows how well the model distinguishes smoke vs no-smoke cases.
+[Confusion Matrix](docs/confusion_matrix.png)  
 
-Image	Detection
+3. Sample Predictions
+The model outputs bounding boxes with confidence scores around detected smoke emissions.
 
-	
- Limitations
 
-False positives: Sometimes detects smoke where none exists (shadows, exhaust pipes).
+he model outputs bounding boxes with confidence scores around detected smoke emissions.  
 
-Small dataset: Current demo uses ~5–10% of total data.
+| ✅ Correct Detection              |  ⚠️ False Positive            |
+|-----------------------             |-------------------            |
+| ![Correct](docs/correct_pred.jpg)  | ![False](docs/false_pred.jpg) | 
 
-Few epochs: Demo trains only for 1–2 epochs for speed.
 
- Future Improvements
+- Correct Detection → Vehicle emitting visible smoke is detected successfully.
+- False Positive → A bounding box is predicted even though no actual smoke is visible (e.g., shadows/exhaust pipes).
 
-Train on full dataset with more epochs (20–50).
 
-Improve dataset quality (remove noisy labels, add balanced samples).
 
-Deploy as a real-time CCTV monitoring system.
+#### ✅ Summary:
+- The model successfully detects vehicle smoke in many cases.
+- False positives occur, which can be reduced with more data and fine-tuning.
 
-Integrate with traffic police systems for alerts.
+
+#### ⚠️ Limitations
+- False positives: Sometimes detects smoke where none exists (shadows, exhaust pipes).
+- Small dataset: Current demo uses ~5–10% of total data.
+- Few epochs: Demo trains only for 1–2 epochs for speed.
+
+
+##### 🔮 Future Improvements
+- Train on full dataset with more epochs (20–50).
+- Improve dataset quality (remove noisy labels, add balanced samples).
+- Deploy as a real-time CCTV monitoring system.
+- Integrate with traffic police systems for alerts.
+
+
+###### 📚 References
+- Ultralytics YOLOv8: https://github.com/ultralytics/ultralytics
+- Vehicle smoke datasets (public sources, custom labeling)
+
