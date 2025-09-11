@@ -105,3 +105,11 @@ he model outputs bounding boxes with confidence scores around detected smoke emi
 - Ultralytics YOLOv8: https://github.com/ultralytics/ultralytics
 - Vehicle smoke datasets (public sources, custom labeling)
 
+### 📂 Dataset & Weights  
+
+Due to size limitations, the **full dataset** and **trained model weights** are stored on Google Drive.  
+
+- Dataset (train/valid/test): [Google Drive Link](https://drive.google.com/drive/folders/1aooAJAPcpiz38u84VTy5oAD1eGP56un4?usp=drive_link)  
+- Trained YOLOv8 model (best.pt): [Google Drive Link](https://drive.google.com/file/d/1FMuJU4ao-f9d_f8GmT95W5yn2o1rloBc/view?usp=drive_link)  
+
+
